@@ -1,0 +1,11 @@
+/* Copyright 2026 上海如静知华信息科技有限公司 */
+package cn.zhuatech.contactai.config;
+import cn.zhuatech.contactai.model.*; import cn.zhuatech.contactai.repository.*; import org.springframework.boot.CommandLineRunner; import org.springframework.context.annotation.*; import org.springframework.security.crypto.password.PasswordEncoder; import java.time.LocalDate; import java.util.List;
+@Configuration public class DataInitializer {
+ @Bean CommandLineRunner seed(OperatingUnitRepository units,WorkRecordRepository tasks,ResourceRegisterRepository resources,ReviewRecordRepository reviews,UserRepository users,PasswordEncoder encoder){return args->{if(units.count()>0)return;
+ var u1=units.save(new OperatingUnit("SERVICE-QA","服务质量组","客户体验中心",320));var u2=units.save(new OperatingUnit("AFTERSALE","售后热线","华东服务中心",240));var u3=units.save(new OperatingUnit("VIP-SERVICE","重点客户组","全国服务中心",120));
+ var t1=tasks.save(new WorkRecord("QA-260817-118","CALL-88621","退款政策反复咨询",u2,12,7,3,LocalDate.now(),WorkRecord.Status.RUNNING,"负向+重复来电"));var t2=tasks.save(new WorkRecord("QA-260817-112","CALL-88576","安装预约等待过长",u1,10,8,1,LocalDate.now(),WorkRecord.Status.RUNNING,"等待+排班"));var t3=tasks.save(new WorkRecord("QA-260817-106","CHAT-46218","VIP 客户高额退款",u3,14,6,4,LocalDate.now(),WorkRecord.Status.RELEASED,"VIP+高额退款"));var t4=tasks.save(new WorkRecord("QA-260817-099","CALL-88492","保修范围解释",u2,8,8,0,LocalDate.now(),WorkRecord.Status.COMPLETED,"政策咨询"));
+ resources.saveAll(List.of(new ResourceRegister("VOICE-01","语音录音通道",u1,ResourceRegister.Status.RUNNING,99),new ResourceRegister("ASR-02","实时转写服务",u1,ResourceRegister.Status.RUNNING,96),new ResourceRegister("CHAT-03","在线客服通道",u3,ResourceRegister.Status.IDLE,94)));
+ reviews.saveAll(List.of(new ReviewRecord("SV-260817-032",t3,"主管审批",14,4,ReviewRecord.Result.PENDING,"宋知遥"),new ReviewRecord("SV-260817-027",t4,"合规复核",8,0,ReviewRecord.Result.PASSED,"沈言"),new ReviewRecord("SV-260817-018",t1,"投诉升级",12,3,ReviewRecord.Result.FAILED,"宋知遥")));
+ String demo=encoder.encode("Demo@2026");users.saveAll(List.of(new UserAccount("operator",demo,"沈言",UserAccount.Role.DOMAIN_USER,"AFTERSALE"),new UserAccount("planner",demo,"宋知遥",UserAccount.Role.DOMAIN_OPERATOR,null),new UserAccount("quality",demo,"顾清",UserAccount.Role.QUALITY,null),new UserAccount("admin",encoder.encode("ZhuaTech@2026"),"系统管理员",UserAccount.Role.ADMIN,null)));};}
+}
