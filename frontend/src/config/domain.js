@@ -1,4 +1,4 @@
-/* Copyright 2026 上海如静知华信息科技有限公司 */
+/* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ */
 export const domain={
  code:'CONTACTAI',systemName:'知华联络中心智能质检',englishName:'CONTACT CENTER INTELLIGENCE',theme:{primary:'#23766f',dark:'#183b3c',accent:'#d07a43'},
  workspace:'客户体验中心 / 服务质量组',fieldWorkspace:'售后热线 / 质检席',period:'2026-08-17 · 午间班次',liveText:'会话流于 14:32 更新',fieldContextLabel:'当前队列',fieldContext:'售后热线 · 华东区',fieldUser:'沈言',fieldRole:'质检专员',adminUser:'宋知遥',adminRole:'客服平台主管',
