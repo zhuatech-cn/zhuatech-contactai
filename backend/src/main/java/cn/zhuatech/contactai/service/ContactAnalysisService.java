@@ -11,9 +11,16 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-/** 对会话情绪、等待、复联与合规信号进行可解释质检。 */
+/**
+ * 对会话情绪、等待、复联与合规信号进行可解释质检。
+ *
+ * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ */
 @Service
 public class ContactAnalysisService {
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public Result analyze(Request request) {
         int score = Math.max(0, 55 - request.sentimentScore());
         if (request.waitSeconds() > 120) score += 18;
@@ -35,10 +42,16 @@ public class ContactAnalysisService {
             tags, actions, request.compliancePhraseMissed() || request.refundAmount().compareTo(new BigDecimal("10000")) >= 0);
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public record Request(@NotBlank String conversationId, @Min(0) @Max(100) int sentimentScore,
                           @Min(0) int waitSeconds, @Min(0) @Max(10) int repeatContacts,
                           boolean compliancePhraseMissed, @DecimalMin("0") BigDecimal refundAmount,
                           boolean vip) {}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public record Result(String conversationId, int riskScore, String severity, String queue,
                          List<String> tags, List<String> actions, boolean humanApprovalRequired) {}
 }

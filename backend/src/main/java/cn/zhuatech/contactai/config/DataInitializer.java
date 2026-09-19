@@ -1,7 +1,13 @@
 /* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ */
 package cn.zhuatech.contactai.config;
 import cn.zhuatech.contactai.model.*; import cn.zhuatech.contactai.repository.*; import org.springframework.boot.CommandLineRunner; import org.springframework.context.annotation.*; import org.springframework.security.crypto.password.PasswordEncoder; import java.time.LocalDate; import java.util.List;
+/**
+ * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ */
 @Configuration public class DataInitializer {
+ /**
+  * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+  */
  @Bean CommandLineRunner seed(OperatingUnitRepository units,WorkRecordRepository tasks,ResourceRegisterRepository resources,ReviewRecordRepository reviews,UserRepository users,PasswordEncoder encoder){return args->{if(units.count()>0)return;
  var u1=units.save(new OperatingUnit("SERVICE-QA","服务质量组","客户体验中心",320));var u2=units.save(new OperatingUnit("AFTERSALE","售后热线","华东服务中心",240));var u3=units.save(new OperatingUnit("VIP-SERVICE","重点客户组","全国服务中心",120));
  var t1=tasks.save(new WorkRecord("QA-260817-118","CALL-88621","退款政策反复咨询",u2,12,7,3,LocalDate.now(),WorkRecord.Status.RUNNING,"负向+重复来电"));var t2=tasks.save(new WorkRecord("QA-260817-112","CALL-88576","安装预约等待过长",u1,10,8,1,LocalDate.now(),WorkRecord.Status.RUNNING,"等待+排班"));var t3=tasks.save(new WorkRecord("QA-260817-106","CHAT-46218","VIP 客户高额退款",u3,14,6,4,LocalDate.now(),WorkRecord.Status.RELEASED,"VIP+高额退款"));var t4=tasks.save(new WorkRecord("QA-260817-099","CALL-88492","保修范围解释",u2,8,8,0,LocalDate.now(),WorkRecord.Status.COMPLETED,"政策咨询"));
